@@ -633,6 +633,28 @@
       padding: 2.5rem 2rem;
       text-align: center;
     }
+    .footer-logo-img {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1rem;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(56,189,248,.06);
+      border: 1px dashed rgba(56,189,248,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: .7rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .footer-logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      mix-blend-mode: screen;
+    }
     .footer-logo {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.4rem;
@@ -1160,7 +1182,7 @@
           <div class="bf-icon">🎨</div>
           <div>
             <div class="bf-title">Built-in Themes</div>
-            <div class="bf-body">Choose from six pre-built color schemes — navy, red/black, orange, gold, and more — or supply your own hex codes for a fully custom palette. See each predefined scheme <a href="theme-preview.html" >here</a>.</div>
+            <div class="bf-body">Choose from six pre-built color schemes — navy, red/black, orange, gold, and more — or supply your own hex codes for a fully custom palette.</div>
           </div>
         </div>
         <div class="bf-item fade-up">
@@ -1271,6 +1293,9 @@
 
 <!-- FOOTER -->
 <footer>
+  <div class="footer-logo-img">
+    <img src="TourneyNotesLogo.PNG" alt="TourneyNotes" onerror="this.style.display='none'; this.parentElement.innerHTML='Logo Here'" />
+  </div>
   <div class="footer-logo">Tourney<span>Notes</span></div>
   <p>© 2026 TourneyNotes. Built for travel baseball families.</p>
 </footer>
