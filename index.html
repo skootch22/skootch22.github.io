@@ -1298,10 +1298,13 @@
 
 <script>
 // ── FORM ──────────────────────────────────────────────────────
-document.getElementById('btn-submit').addEventListener('click', function() {
+document.getElementById('btn-submit').addEventListener('click', async function() {
   const name    = document.getElementById('f-name').value.trim();
   const email   = document.getElementById('f-email').value.trim();
   const team    = document.getElementById('f-team').value.trim();
+  const age     = document.getElementById('f-age').value;
+  const message = document.getElementById('f-message').value.trim();
+  const btn     = document.getElementById('btn-submit');
 
   if (!name || !email || !team) {
     alert('Please fill in your name, email, and team name.');
@@ -1312,19 +1315,25 @@ document.getElementById('btn-submit').addEventListener('click', function() {
     return;
   }
 
-  // Build mailto link
-  const age     = document.getElementById('f-age').value;
-  const message = document.getElementById('f-message').value.trim();
-  const subject = encodeURIComponent(`TourneyNotes – ${team}`);
-  const body    = encodeURIComponent(
-    `Name: ${name}\nEmail: ${email}\nTeam: ${team}\nAge Group: ${age || 'Not specified'}\n\n${message || 'No additional message.'}`
-  );
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
 
-  window.location.href = `mailto:scott@tourneynotes.com?subject=${subject}&body=${body}`;
+  try {
+    const res = await fetch('https://formspree.io/f/xkoejena', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, team, age: age || 'Not specified', message: message || 'No additional message.' })
+    });
 
-  // Show success
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
+    if (!res.ok) throw new Error('Submission failed.');
+
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  } catch (err) {
+    alert('Something went wrong. Please try again or email us directly at scott@tourneynotes.com.');
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  }
 });
 
 // ── SCROLL ANIMATIONS ──────────────────────────────────────────
